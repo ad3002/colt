@@ -19,8 +19,14 @@ paper/*.aux
 paper/*.bbl
 paper/*.blg
 paper/*.out
-paper/*.pdf
+# pdfs of the manuscripts ARE tracked (shipped to colt-papers)
 paper/*.toc
 
 # publication staging (derived snapshots of the two GitHub repos)
 .publish/
+paper*/c*.log
+
+paper2/*.aux
+paper2/*.bbl
+paper2/*.blg
+paper2/*.out
