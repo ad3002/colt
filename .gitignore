@@ -21,3 +21,6 @@ paper/*.blg
 paper/*.out
 paper/*.pdf
 paper/*.toc
+
+# publication staging (derived snapshots of the two GitHub repos)
+.publish/
