@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "colt-reasoner"
+version = "0.1.0"
+description = "CoLT — Conflict-driven Lattice Transformer: learned search inside a sound deduction envelope."
+authors = [{ name = "Aleksey Komissarov", email = "ad3002@gmail.com" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.0",
+    "numpy>=1.24",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/ad3002/colt"
+
+[project.scripts]
+colt-train = "colt.train:main"
+colt-eval = "colt.eval:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["colt*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501", "E731", "E741"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --tb=short"

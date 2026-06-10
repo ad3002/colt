@@ -1,0 +1,26 @@
+{
+  "checkpoint": "runs/colt6_seed42/final.pt",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n_puzzles": 180,
+  "settings": [
+    {
+      "frames": 1,
+      "agg": "single",
+      "poisoning_rate": 0.2556,
+      "accuracy": 0.7444
+    },
+    {
+      "frames": 4,
+      "agg": "union",
+      "poisoning_rate": 0.0667,
+      "accuracy": 1.0
+    },
+    {
+      "frames": 8,
+      "agg": "union",
+      "poisoning_rate": 0.0167,
+      "accuracy": 1.0
+    }
+  ],
+  "seed": 0
+}

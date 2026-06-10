@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use CoLT, please cite this repository and the GRAM + LDT papers it builds on."
+title: "CoLT — Conflict-driven Lattice Transformer"
+authors:
+  - family-names: Komissarov
+    given-names: Aleksey
+    email: ad3002@gmail.com
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/ad3002/colt"
+references:
+  - type: article
+    title: "Lattice Deduction Transformers"
+    authors:
+      - family-names: Davis
+        given-names: Liam
+      - family-names: Haller
+        given-names: Leopold
+      - family-names: Alfarano
+        given-names: Alberto
+      - family-names: Santolucito
+        given-names: Mark
+    url: "https://arxiv.org/abs/2605.08605"
+    year: 2026
+  - type: article
+    title: "Generative Recursive Reasoning Models"
+    authors:
+      - family-names: Baek
+        given-names: Junyeob
+      - family-names: Jo
+        given-names: Mingyu
+      - family-names: Kim
+        given-names: Minsu
+      - family-names: Ren
+        given-names: Mengye
+      - family-names: Bengio
+        given-names: Yoshua
+      - family-names: Ahn
+        given-names: Sungjin
+    url: "https://arxiv.org/abs/2605.19376"
+    year: 2026

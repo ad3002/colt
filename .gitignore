@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# Reproducible artifacts: datasets and run dirs are rebuilt by scripts;
+# curated eval JSONs/history in results/ ARE committed.
+runs/
+data/
+*.log
+*.pt
+!results/**
+
+# LaTeX build
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.pdf
+paper/*.toc

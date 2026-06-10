@@ -1,0 +1,10 @@
+{
+  "task": "graph-coloring G(20, 0.25), 4 colors, multi-solution (K<=16)",
+  "n_test": 180,
+  "accuracy": 1.0,
+  "answered_in_enumerated_solution_set": 1.0,
+  "suppressed_unsound": 0,
+  "k_max": 16,
+  "steps": 3000,
+  "seed": 42
+}

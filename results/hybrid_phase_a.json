@@ -1,0 +1,90 @@
+{
+  "train": {
+    "n_graphs": 60,
+    "n_states": 2019,
+    "n_pins": 45853,
+    "pct_extendable": 78.4,
+    "density": 4.5
+  },
+  "node_budget": 2000,
+  "evals": [
+    {
+      "n": 40,
+      "density": 4.2,
+      "n_instances": 100,
+      "budget": 2000,
+      "random_solve_rate": 1.0,
+      "mrv_solve_rate": 1.0,
+      "mrv_deg_solve_rate": 1.0,
+      "learned_solve_rate": 0.96,
+      "random_decisions": {
+        "median": 19,
+        "p90": 84
+      },
+      "mrv_decisions": {
+        "median": 16,
+        "p90": 37
+      },
+      "mrv_deg_decisions": {
+        "median": 13,
+        "p90": 17
+      },
+      "learned_decisions": {
+        "median": 29,
+        "p90": 265
+      }
+    },
+    {
+      "n": 40,
+      "density": 4.5,
+      "n_instances": 100,
+      "budget": 2000,
+      "random_solve_rate": 1.0,
+      "mrv_solve_rate": 1.0,
+      "mrv_deg_solve_rate": 1.0,
+      "learned_solve_rate": 0.99,
+      "random_decisions": {
+        "median": 20,
+        "p90": 63
+      },
+      "mrv_decisions": {
+        "median": 14,
+        "p90": 35
+      },
+      "mrv_deg_decisions": {
+        "median": 10,
+        "p90": 14
+      },
+      "learned_decisions": {
+        "median": 49,
+        "p90": 339
+      }
+    },
+    {
+      "n": 100,
+      "density": 4.5,
+      "n_instances": 40,
+      "budget": 6000,
+      "random_solve_rate": 0.7,
+      "mrv_solve_rate": 0.95,
+      "mrv_deg_solve_rate": 1.0,
+      "learned_solve_rate": 0.175,
+      "random_decisions": {
+        "median": 2258,
+        "p90": 5045
+      },
+      "mrv_decisions": {
+        "median": 275,
+        "p90": 1316
+      },
+      "mrv_deg_decisions": {
+        "median": 40,
+        "p90": 73
+      },
+      "learned_decisions": {
+        "median": 297,
+        "p90": 3576
+      }
+    }
+  ]
+}

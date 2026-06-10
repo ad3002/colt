@@ -1,0 +1,14 @@
+{
+  "n_examples": 300,
+  "accuracy_valid_solution": 0.01,
+  "accuracy_target_exact_match": 0.01,
+  "n_samples_for_coverage": 4,
+  "coverage": 0.03666666666666667,
+  "coverage_found": 11,
+  "coverage_possible": 300,
+  "split": "/root/colt/data/gram_sudoku4/test.tsv",
+  "checkpoint": "/root/colt/runs/gram4_seed42/final.pt",
+  "seed": 0,
+  "used_ema": false,
+  "used_act": false
+}

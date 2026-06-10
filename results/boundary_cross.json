@@ -1,0 +1,45 @@
+{
+  "density": 4.0,
+  "n_train": 595,
+  "n_test": 105,
+  "arms": {
+    "A_baseline_16x40": {
+      "restart": 0.0,
+      "dfs": 0.0,
+      "final_loss": 1.1109
+    },
+    "B_budget_32x240": {
+      "restart": 0.019,
+      "dfs": 0.0
+    },
+    "G_noCLS_16x40": {
+      "restart": 0.0,
+      "dfs": 0.0
+    },
+    "C_scale_16x40": {
+      "restart": 0.0952,
+      "dfs": 0.0857,
+      "final_loss": 0.1661
+    },
+    "F_diag_C": {
+      "elim_precision": 0.5734,
+      "elim_recall": 0.4583,
+      "shallow_state_kills": 2684
+    },
+    "D_K48_16x40": {
+      "restart": 0.1524,
+      "dfs": 0.1429,
+      "final_loss": 1.035
+    },
+    "E_stub_16x40": {
+      "restart": 0.0,
+      "dfs": 0.0
+    },
+    "F_diag_A": {
+      "elim_precision": 0.9296,
+      "elim_recall": 0.0123,
+      "shallow_state_kills": 12
+    }
+  },
+  "tail_wall_s": 1993.7
+}

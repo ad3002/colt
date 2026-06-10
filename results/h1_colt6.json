@@ -1,0 +1,10 @@
+{
+  "checkpoint": "runs/colt6_seed42/final.pt",
+  "split": "data/sudoku6/test.tsv",
+  "n_puzzles": 180,
+  "singleton_rate": 1.0,
+  "commit_correct": 1.0,
+  "cand_per_blank_after_pass1": 1.0,
+  "full_commit_frac": 1.0,
+  "theta_elim": 0.1
+}

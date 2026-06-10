@@ -1,0 +1,14 @@
+{
+  "checkpoint": "runs/colt_multi_seed42/final.pt",
+  "split": "data/sudoku9_small/test.tsv",
+  "n_states": 512,
+  "elimination_precision": 0.9772,
+  "elimination_recall": 0.5967,
+  "false_eliminations": 793,
+  "conflict_auc": 0.5002,
+  "policy_survival_argmax": 0.59,
+  "policy_survival_random": 0.6176,
+  "policy_margin": -0.0276,
+  "theta_elim": 0.1,
+  "seed": 0
+}

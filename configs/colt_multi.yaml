@@ -1,0 +1,50 @@
+# CoLT multi-task — Phase 3: ONE checkpoint for Sudoku 4×4 AND 6×6.
+# The model is size-agnostic (relational bias + v_max padding); training keeps
+# one pool per task and round-robins optimizer steps. Evaluated per task from
+# the same weights, plus zero-shot 9×9 propagation-transfer metrics
+# (scripts/transfer_probe.py).
+
+model:
+  d_model: 64
+  n_heads: 4
+  n_layers: 4
+  n_iters: 10
+  ff_mult: 4
+  v_max: 9
+
+solve:
+  theta_elim: 0.1
+  theta_cls_train: 0.9
+  tau_decide: 1.5
+  tau_age: 60
+
+loss:
+  w_plus: 4.0
+  w_minus: 0.5
+  lambda_cls: 0.1
+  lambda_ce: 0.2
+  lambda_policy: 0.25
+
+train:
+  optimizer: adamw
+  lr: 3.0e-3
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  batch_size: 64
+  steps: 8000            # 4000 per task (round-robin over 2 tasks)
+  warmup_frac: 0.03
+  seed: 42
+  curriculum_reveal_max: 0.9
+  curriculum_anneal_frac: 0.7
+  pool_policy: learned
+
+eval:
+  n_chains: 32
+  max_rounds: 60
+  theta_cls: 0.6
+  probe_chains: 16
+  probe_rounds: 48
+
+logging:
+  log_every: 100

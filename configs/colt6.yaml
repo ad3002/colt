@@ -1,0 +1,52 @@
+# CoLT on Sudoku 6×6 — the Phase 1/2 head-to-head config.
+# Matched to the LDT baseline run (ad3002/LTD configs/sudoku6.yaml): same data
+# (data/sudoku6, 20 clues, seed 42), same training scale (d=64, 4 layers, L=10,
+# batch 64, 5000 steps), same curriculum. The deltas are CoLT's: relational
+# graph bias instead of learned positional tables, the policy head + loss,
+# and (at inference) DFS + nogoods.
+
+model:
+  d_model: 64
+  n_heads: 4
+  n_layers: 4
+  n_iters: 10
+  ff_mult: 4
+  v_max: 9              # fixed value-slot padding — one weight shape for all sizes
+
+solve:
+  theta_elim: 0.1
+  theta_cls_train: 0.9
+  tau_decide: 1.5
+  tau_age: 60
+
+loss:
+  w_plus: 4.0
+  w_minus: 0.5
+  lambda_cls: 0.1
+  lambda_ce: 0.2
+  lambda_policy: 0.25   # branch-policy BCE weight (CoLT)
+
+train:
+  optimizer: adamw
+  lr: 3.0e-3
+  weight_decay: 0.1
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  batch_size: 64
+  steps: 5000
+  warmup_frac: 0.03
+  seed: 42
+  curriculum_reveal_max: 0.9
+  curriculum_anneal_frac: 0.7
+  pool_policy: learned  # training pool branches with the learned policy
+                        # (search-distribution match between train and test)
+
+eval:
+  n_chains: 32          # = the frozen 6×6 budget (BENCHMARKS.md)
+  max_rounds: 60
+  theta_cls: 0.6
+  probe_chains: 16
+  probe_rounds: 48
+
+logging:
+  log_every: 100
