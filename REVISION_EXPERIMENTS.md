@@ -10,7 +10,8 @@ Status legend: `[CPU-done]` already executed locally (no GPU needed),
 `[GPU]` waiting on hardware, `[CODE]` needs implementation first.
 
 Hardware assumption: one 24 GB-class GPU (RTX 4090 or better). Total GPU
-budget for E1–E6: **~25 GPU-hours**. Optional E7 adds ~30–40.
+budget for E1–E6: **~29 GPU-hours** (incl. the E2 batch-512-effective
+amendment). Optional E7 adds ~30–40.
 
 ---
 
@@ -85,9 +86,18 @@ measured); LDT+aug and LDT-no-aug are the new cells. If LDT+aug >= 80%, the
 9x9** and must be retracted to a 6x6-only observation. If LDT+aug <= 10%, the
 interaction generalizes across board sizes and the claim strengthens.
 
-Budget: 2 new cells x ~6 h (+2 reruns if seeds from E3 are folded in) =
-**~12 GPU-h**.
-Artifacts: `results/grid9_{ldt,colt}_{aug,noaug}.json`.
+**Amendment (2026-06-11, before any run; prompted by re-reading referee point
+1):** the LDT cells additionally run at *effective* batch 512 via gradient
+accumulation (2 x 256), which removes the reproduction's batch-size deviation
+from the LDT recipe on a 24 GB card at the cost of ~2x wall-clock. The
+batch-256 LDT row is kept as a secondary arm so the deviation's own effect is
+measured rather than assumed. Decision rule unchanged; it applies to the
+batch-512-effective cells.
+
+Budget: 2 new cells x ~6 h, LDT cells at ~2x wall-clock for accumulation
+(+2 reruns if seeds from E3 are folded in) = **~16 GPU-h**.
+Artifacts: `results/grid9_{ldt,colt}_{aug,noaug}.json`,
+`results/grid9_ldt_b512eff_{aug,noaug}.json`.
 
 ---
 
