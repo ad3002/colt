@@ -270,3 +270,28 @@ def test_trainpool_policy_modes_run():
         p = torch.randn(4, 16)
         stats = pool.advance(b, b, p, StepConfig(), gen, policy_mode=mode)
         assert stats.mean_candidates > 0
+
+
+# --- exact verifier (the soundness gate) -------------------------------------
+
+
+def test_verifier_accepts_valid_and_rejects_each_violation_type():
+    import torch
+
+    geom = geometry_for(4)
+    valid = torch.tensor(
+        [[0, 1, 2, 3,
+          2, 3, 0, 1,
+          1, 0, 3, 2,
+          3, 2, 1, 0]], dtype=torch.long)
+    assert satisfies_constraints(valid, geom).tolist() == [True]
+
+    row_dup = valid.clone(); row_dup[0, 1] = 0          # duplicate in row 0
+    col_dup = valid.clone(); col_dup[0, 4] = 0          # duplicate in column 0
+    box_dup = valid.clone(); box_dup[0, 5] = 0          # duplicate in top-left box
+    blank = valid.clone(); blank[0, 7] = -1             # incomplete grid
+    for bad in (row_dup, col_dup, box_dup, blank):
+        assert satisfies_constraints(bad, geom).tolist() == [False]
+
+    batch = torch.cat([valid, row_dup, col_dup, box_dup, blank])
+    assert satisfies_constraints(batch, geom).tolist() == [True, False, False, False, False]

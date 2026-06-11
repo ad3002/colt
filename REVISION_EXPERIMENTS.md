@@ -10,8 +10,9 @@ Status legend: `[CPU-done]` already executed locally (no GPU needed),
 `[GPU]` waiting on hardware, `[CODE]` needs implementation first.
 
 Hardware assumption: one 24 GB-class GPU (RTX 4090 or better). Total GPU
-budget for E1–E6: **~29 GPU-hours** (incl. the E2 batch-512-effective
-amendment). Optional E7 adds ~30–40.
+budget for E1–E6 + E8 + E9: **~45 GPU-hours** (incl. the E2
+batch-512-effective amendment and the E3 five-seed/dataset-seed amendment).
+Optional E7 adds ~30–40.
 
 ---
 
@@ -111,6 +112,18 @@ Protocol: 3 seeds (42, 43, 44) for: (a) the hard-slice 2x3 ablation grid,
 Tables in the paper gain mean +/- sd over seeds and Wilson 95% intervals on
 the per-seed binomials (n = 180).
 
+**Amendment (2026-06-11, before any run; prompted by review 2):**
+- central claims (9x9 +/- aug, the 2x2 interaction) extended to **5 training
+  seeds** (42-46); peripheral cells stay at 3.
+- **dataset-generation seeds**: regenerate `sudoku6` and `sudoku9` with
+  builder seeds 43 and 44 (leakage-audited the same way) and retrain the
+  headline arms once per dataset seed, so the conclusions are not specific to
+  one generated corpus.
+- arm comparisons on identical puzzles are reported with **paired McNemar
+  tests**, and the poisoning-accuracy contingency gains a **bootstrap CI**
+  over puzzles.
+- all seeds are reported, including failures.
+
 Pre-registered decision rules:
 - The policy-head effect is declared nonzero only if |mean difference| >
   2 x SE across seeds on the same puzzles (paired). Otherwise the paper says
@@ -204,6 +217,64 @@ Budget: **< 1 GPU-h**. Artifacts: `results/h2_colt9aug_union.json`,
 
 ---
 
+## E8 — Training-side component ablation `[GPU]` *(added 2026-06-11 per review 2, before any run)*
+
+**Review-2 point 1** (the paper's strongest causal claim, "the training-side
+delta closed the gap", bundles three components: graph bias, coordinate MLP,
+policy loss; curriculum/data/optimizer are matched by construction).
+
+Protocol: 6x6, frozen budget and data, 3 seeds each:
+
+| arm | graph bias | coord MLP | policy loss |
+|---|---|---|---|
+| A LDT baseline (positional tables) | no | no | no |
+| B + graph bias only | yes | no | no |
+| C + coord MLP only | no | yes | no |
+| D CoLT minus policy loss | yes | yes | no |
+| E CoLT minus coord MLP | yes | no | yes |
+| F CoLT full | yes | yes | yes |
+
+Each arm evaluated on the standard and hard slices (dfs x learned where the
+policy head exists, dfs x random otherwise) plus the held-out probe curve.
+
+Pre-registered hypotheses and decision rules:
+- **H-E8-graph**: B accounts for >= 80% of the A->F gap (paper keeps
+  "constraint-graph conditioning carries the gain", now measured).
+- **H-E8-additive**: if no single component reaches 50% of the gap, the
+  claim is rewritten as "the gain is joint; no single component suffices",
+  which is itself a finding about why the architecture works.
+- Policy-loss arms (D vs F) double as a *training-side* test of the policy
+  head, separate from its inference-side inertness.
+
+Budget: 6 arms x 3 seeds x ~10 min = **~3 GPU-h**.
+Artifacts: `results/ablate6_{A..F}_seed*.json`.
+
+---
+
+## E9 — External corpus evaluation `[GPU]` *(added 2026-06-11 per review 2, before any run)*
+
+**Review-2 point 6** (external validity: all data is our generator; LDT's
+own corpus is Sudoku-Extreme).
+
+Protocol: evaluate, without retraining, the augmented 9x9 checkpoint (and the
+E3 seed checkpoints) on an external 9x9 corpus: the Sudoku-Extreme test set
+if obtainable, otherwise the RRN/Kaggle hardest-17-clue split, cleanly
+labeled as out-of-distribution (clue count 17-24 vs our 25). Report accuracy,
+soundness, abstention, first-pass poisoning, and the classical-reference
+timing on the same instances. Optionally one fine-tuning arm (<= 2k steps) to
+separate distribution shift from capability.
+
+Pre-registered framing (written before seeing any number): this is an OOD
+generalization measurement, not a comparison with published LDT numbers; the
+paper's conclusions stay restricted to generated CSPs unless the external
+numbers are strong, in which case the restriction is relaxed to "and
+transfers to the external corpus at X%".
+
+Budget: eval ~0.5 GPU-h; optional fine-tune ~2 GPU-h.
+Artifacts: `results/external9_{eval,finetune}.json`.
+
+---
+
 ## E7 (optional, raises the paper's tier) — Cross-architecture anatomy `[CODE, GPU]`
 
 **Generality limitation** (all claims shown on one architecture family).
@@ -226,11 +297,12 @@ headroom in the compute grant.
 
 ---
 
-## Execution order on GPU day 1
+## Execution order on GPU days 1–2
 
 ```
-E4 (30 min, gates everything)  ->  E1 (4 h)  ->  E6 (1 h)  ->  E3 (8 h)
-->  E2 (12 h)  ->  E5 / E7 as compute allows
+E4 (30 min, gates everything)  ->  E8 (3 h, gates the paper's main causal
+claim)  ->  E1 (4 h)  ->  E6 + E9-eval (1.5 h)  ->  E3 (15 h with the
+amendment)  ->  E2 (16 h)  ->  E5 / E9-finetune / E7 as compute allows
 ```
 
 Every run lands in `results/` and is folded into the paper by

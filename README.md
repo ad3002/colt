@@ -8,7 +8,7 @@ nogood memory, the classical CDCL playbook — **inside LDT's sound deduction
 envelope**, and replaces per-size positional tables with **constraint-graph
 attention**, so one checkpoint serves any board.
 
-> The full rationale is in [`DESIGN.md`](DESIGN.md); the pre-registered
+> The full rationale is in [`DESIGN.md`](DESIGN.md); the frozen (committed-before-execution)
 > protocol in [`BENCHMARKS.md`](BENCHMARKS.md); the GPU plan in
 > [`PHASE4.md`](PHASE4.md). The two companion manuscripts are maintained separately and will appear on arXiv.
 
@@ -32,8 +32,8 @@ audited for leakage up to the full Sudoku symmetry group
 [`results/leakage_audit.json`](results/leakage_audit.json)): the 9×9 splits are clean at
 every level (puzzles, solutions, digit orbits, full orbits); 4×4/6×6 symmetry-class overlap
 is forced by those domains' tiny class counts (2 and ~49 essential grids) and those tiers
-are read accordingly. Revision experiments are pre-registered in
-[`REVISION_EXPERIMENTS.md`](REVISION_EXPERIMENTS.md) before execution.
+are read accordingly. Revision experiments are frozen (committed before execution) in
+[`REVISION_EXPERIMENTS.md`](REVISION_EXPERIMENTS.md).
 
 ### Headline — 6×6 test, 32 chains × 60 rounds, identical puzzles every row
 
@@ -45,10 +45,12 @@ are read accordingly. Revision experiments are pre-registered in
 
 **+49.5 pp over LDT at equal budget — and the decomposition is the story:**
 
-1. **Constraint-graph attention is the dominant factor.** The CoLT checkpoint
+1. **The training-side delta, not search, closed the gap.** The CoLT checkpoint
    generalized to a 100% held-out probe by step 1,000 where the positional-table
-   LDT run sat at 0% on the same data (and 58% at step 4,000). Structure, not
-   search, closed the gap.
+   LDT run sat at 0% on the same data (and 58% at step 4,000). The delta bundles
+   three components (graph bias, coordinate MLP, policy loss); the
+   single-component ablation isolating them is frozen in
+   [`REVISION_EXPERIMENTS.md`](REVISION_EXPERIMENTS.md) (E8).
 2. **DFS + nogoods is a pure efficiency win**: wasted wrong-completion
    derivations drop **2,815 → 2** (standard slice) and **77,692 → 42** (hard
    14-clue slice) at identical accuracy — three orders of magnitude less
@@ -100,9 +102,10 @@ a 24 GB card under full-unroll BPTT). Protocol details: [`PHASE4.md`](PHASE4.md)
   poisoning 25.6% → **1.7%**, hard-slice accuracy 74.4% → **100%**. Mean
   aggregation only reaches 96.1% — the union is the active anti-poisoning
   ingredient, as designed.
-- **2×2 confound resolved with an interaction:** at matched budget,
-  augmentation *destroys* the positional-table baseline (49.4% → **0.0%**)
-  and is free for the graph-bias model (98.9% → **100.0%**).
+- **2×2 confound resolved with an interaction:** at the frozen budget,
+  augmentation *collapses* the positional-table baseline (49.4% → **0.0%**;
+  destruction vs slowed convergence is separated by the extended-budget arm
+  E1) and is free for the graph-bias model (98.9% → **100.0%**).
   Constraint-graph conditioning is what makes augmentation affordable.
 
 ## Layout
