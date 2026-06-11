@@ -26,7 +26,14 @@ arbitrarily smart learned search at zero risk to the guarantee.
 ## Results (frozen budgets, identical data vs baselines; 1× RTX 4090, minutes per run)
 
 Raw JSONs in [`results/`](results/); protocol in [`BENCHMARKS.md`](BENCHMARKS.md);
-full write-up in the companion manuscripts (arXiv, forthcoming).
+full write-up in the companion manuscripts (arXiv, forthcoming). Train/test splits are
+audited for leakage up to the full Sudoku symmetry group
+([`scripts/leakage_audit.py`](scripts/leakage_audit.py),
+[`results/leakage_audit.json`](results/leakage_audit.json)): the 9×9 splits are clean at
+every level (puzzles, solutions, digit orbits, full orbits); 4×4/6×6 symmetry-class overlap
+is forced by those domains' tiny class counts (2 and ~49 essential grids) and those tiers
+are read accordingly. Revision experiments are pre-registered in
+[`REVISION_EXPERIMENTS.md`](REVISION_EXPERIMENTS.md) before execution.
 
 ### Headline — 6×6 test, 32 chains × 60 rounds, identical puzzles every row
 
@@ -61,7 +68,8 @@ full write-up in the companion manuscripts (arXiv, forthcoming).
 | single-size ckpts | 100.0% | 98.9% | — |
 | **one multi-size ckpt** | **100.0%** | **99.4%** | elimination transfers: **precision 0.977 @ recall 0.60**; global heads don't (AUC 0.50) |
 
-Multi-task training *improved* 6×6 over single-size.
+Multi-task training matched single-size 6×6 within one puzzle in 180 (99.4 vs 98.9) —
+criterion "no degradation" passed; no positive-transfer claim at this resolution.
 
 ### Phase 4 — 9×9 at 25 clues (frozen budget 64×200; same data every row)
 
