@@ -3,10 +3,12 @@
 **New architecture research** by the team behind the [ad3002/gram](https://github.com/ad3002/gram)
 (GRAM, arXiv:2605.19376) and [ad3002/LTD](https://github.com/ad3002/LTD)
 (LDT, arXiv:2605.08605) reimplementations. CoLT puts **learned search** —
-a branch-policy head, value-guided conflict detection, DFS backjumping and a
-nogood memory, the classical CDCL playbook — **inside LDT's sound deduction
+a branch-policy head, value-guided conflict detection, chronological DFS
+backtracking with a verified-nogood memory, a CDCL-inspired toolkit (no
+conflict analysis: leaf-level nogoods only) — **inside LDT's sound deduction
 envelope**, and replaces per-size positional tables with **constraint-graph
-attention**, so one checkpoint serves any board.
+attention**: one checkpoint spans the boards it is trained on (4×4/6×6 here),
+and its local propagator transfers zero-shot to 9×9.
 
 > The full rationale is in [`DESIGN.md`](DESIGN.md); the frozen (committed-before-execution)
 > protocol in [`BENCHMARKS.md`](BENCHMARKS.md); the GPU plan in
@@ -63,7 +65,7 @@ are read accordingly. Revision experiments are frozen (committed before executio
    true-solution value in its first forward pass; θ-insensitive). The frontier
    is propagator calibration, not search.
 
-### One checkpoint, every board (multi-task over the constraint graph)
+### One checkpoint across the trained boards (multi-task over the constraint graph)
 
 | | 4×4 | 6×6 | 9×9 (zero-shot) |
 |---|---|---|---|
@@ -93,10 +95,11 @@ a 24 GB card under full-unroll BPTT). Protocol details: [`PHASE4.md`](PHASE4.md)
 
 ### The diagnosis, completed (H1 / H2 / 2×2)
 
-- **H1 — these are one-shot solvers.** A single forward pass commits *every*
-  blank of *every* standard-slice puzzle to a singleton (rate 1.000). The
-  "deduction loop" is a sound verifier around an amortized guesser — which is
-  why search ablations were flat everywhere.
+- **H1 — in the clue-rich regime these are one-shot solvers.** A single forward
+  pass commits *every* blank of *every* standard-slice puzzle to a singleton
+  (rate 1.000). There, the "deduction loop" is a sound verifier around an
+  amortized guesser — which is why search ablations were flat (on from-scratch
+  coloring the singleton rate drops to 1.4% and the loop genuinely iterates).
 - **H2 — test-time cure, no retraining.** Union-ensembling each forward over
   K=8 digit-permutation frames (keep a candidate if *any* frame keeps it):
   poisoning 25.6% → **1.7%**, hard-slice accuracy 74.4% → **100%**. Mean

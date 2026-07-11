@@ -295,3 +295,37 @@ def test_verifier_accepts_valid_and_rejects_each_violation_type():
 
     batch = torch.cat([valid, row_dup, col_dup, box_dup, blank])
     assert satisfies_constraints(batch, geom).tolist() == [True, False, False, False, False]
+
+
+# --- E8 component-ablation switches ------------------------------------------
+
+
+def test_ablation_switches_shapes_and_frozen_zero_rel_bias():
+    geom = geometry_for(4)
+    ctx = context_for(geom)
+    x = L.clues_to_lattice(torch.full((2, 16), -1, dtype=torch.long), geom.n_cand)
+
+    # Arm A parameterization: positional tables only, no rel bias, no coord MLP.
+    m = ColtModel(d_model=32, n_heads=2, n_layers=2, n_iters=3,
+                  use_rel_bias=False, use_coord_mlp=False, pos_table_size=16)
+    out = m(x, ctx)
+    assert out.cand_logits.shape == (2, 3, 16, geom.n_cand)
+
+    rel = [p for n, p in m.core.named_parameters() if "rel_bias" in n]
+    assert rel and all(not p.requires_grad for p in rel)
+    assert all(p.abs().sum().item() == 0.0 for p in rel)
+
+    # One optimizer step must leave the frozen zero bias untouched
+    # (plain-attention equivalence is exact, not approximate).
+    opt = torch.optim.AdamW(m.parameters(), lr=1e-2, weight_decay=0.1)
+    m(x, ctx).mean_cand().sum().backward()
+    opt.step()
+    assert all(p.abs().sum().item() == 0.0 for p in rel)
+
+    # pos_table shorter than the board must fail loudly, not truncate.
+    small = ColtModel(d_model=32, n_heads=2, n_layers=2, n_iters=1, pos_table_size=9)
+    try:
+        small(x, ctx)
+        assert False, "expected ValueError for pos_table smaller than board"
+    except ValueError:
+        pass

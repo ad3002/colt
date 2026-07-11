@@ -139,7 +139,25 @@ Artifacts: `results/seeds/*.json`, aggregated by `scripts/make_tables.py`.
 
 ---
 
-## E4 — Single-environment reconciliation of the anatomy/H2 probe discrepancy `[GPU]`
+## E4 — Single-environment reconciliation of the anatomy/H2 probe discrepancy `[CPU-done]`
+
+> **Result (2026-07-11):** decision rule 1 fired. Both probe code paths are
+> **bitwise identical** (logits and masks) in one environment; the contingency
+> replicates exactly (43/43 failed-poisoned vs 0/137, accuracy 76.1%);
+> poisoned count invariant at theta in {0.10, 0.05, 0.02}; zero status flips
+> within +/-0.02 of theta; solution-value probabilities bimodal (6,242/6,480
+> values at margin >= 0.5, exactly one value within 0.02). The historical
+> 42-vs-46 gap is margin-level environment numerics of a saturated propagator.
+> Artifact: `results/reconcile_anatomy_h2.json`. Paper updated (S5.3, S5.4
+> footnote, Reproducibility, claim-audit row).
+
+> **Execution note (2026-07-11, before results were inspected):** the original
+> `runs/colt6_seed42/final.pt` was lost with the rented pod, so E4 runs on a
+> same-recipe, same-seed, same-data CPU retrain (`runs/colt6_seed42_cpu`,
+> `runs_colt6_cpu_retrain.log`), executed by `scripts/reconcile_probes.py`
+> (both probe code paths verbatim, back to back, one process). Deviation from
+> the frozen text: checkpoint identity; everything else per protocol. E4 is
+> CPU-feasible (inference only), so the `[GPU]` tag was pessimistic.
 
 **Referee point 5** (76.7%/42 poisoned in section 5.2-5.3 vs 74.4%/46 at H2
 K=1; both probes are deterministic forwards of the same checkpoint).
@@ -218,6 +236,16 @@ Budget: **< 1 GPU-h**. Artifacts: `results/h2_colt9aug_union.json`,
 ---
 
 ## E8 — Training-side component ablation `[GPU]` *(added 2026-07-11 per review 2, before any run)*
+
+> **Execution note (2026-07-11, queued before any arm finished):** running on
+> CPU via `scripts/run_e8_cpu.sh` (6 arms x 3 seeds, waves of 3 at 4 threads;
+> ~45 min/arm), evaluated with `dfs x learned` where the policy loss is on and
+> `dfs x random` otherwise, per the frozen table. One protocol detail the
+> frozen text left open: arms with `lambda_policy=0` also set
+> `train.pool_policy=random`, since an untrained policy head branching the
+> training pool is neither the LDT control nor CoLT; this is recorded here
+> before results. Summary artifact: `results/ablate6_summary.json`
+> (`scripts/summarize_e8.py`), decision rules unchanged.
 
 **Review-2 point 1** (the paper's strongest causal claim, "the training-side
 delta closed the gap", bundles three components: graph bias, coordinate MLP,

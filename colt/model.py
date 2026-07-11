@@ -68,11 +68,15 @@ class ColtModel(nn.Module):
         n_iters: int = 10,
         ff_mult: int = 4,
         v_max: int = V_MAX_DEFAULT,
+        use_rel_bias: bool = True,
+        use_coord_mlp: bool = True,
+        pos_table_size: int = 0,
     ):
         super().__init__()
         self.d_model = d_model
         self.n_iters = n_iters
         self.v_max = v_max
+        self.use_coord_mlp = use_coord_mlp
 
         self.input_proj = nn.Linear(v_max, d_model)
         self.coord_mlp = nn.Sequential(
@@ -82,6 +86,18 @@ class ColtModel(nn.Module):
         nn.init.normal_(self.cls_token, std=0.02)
 
         self.core = RelationalStack(n_layers, d_model, n_heads, ff_mult * d_model)
+
+        # Component-ablation switches (revision protocol E8). rel_bias embeddings
+        # are zero-initialized, so freezing them keeps every attention layer
+        # exactly a plain transformer layer. pos_table is the LDT-style learned
+        # absolute-position table (per cell; the CLS token has its own parameter).
+        if not use_rel_bias:
+            for name, p in self.core.named_parameters():
+                if "rel_bias" in name:
+                    p.requires_grad_(False)
+        self.pos_table = nn.Embedding(pos_table_size, d_model) if pos_table_size else None
+        if self.pos_table is not None:
+            nn.init.normal_(self.pos_table.weight, std=0.02)
 
         self.cand_head = nn.Linear(d_model, v_max)
         self.cls_head = nn.Linear(d_model, 1)
@@ -102,10 +118,17 @@ class ColtModel(nn.Module):
         per-sample (per-instance constraint graphs, e.g. random-graph coloring).
         """
         B = x.shape[0]
-        coord = self.coord_mlp(ctx.coord_feats)
-        if coord.dim() == 2:
-            coord = coord.unsqueeze(0)
-        cell = self.input_proj(self._pad_v(x)) + coord
+        cell = self.input_proj(self._pad_v(x))
+        if self.use_coord_mlp:
+            coord = self.coord_mlp(ctx.coord_feats)
+            if coord.dim() == 2:
+                coord = coord.unsqueeze(0)
+            cell = cell + coord
+        if self.pos_table is not None:
+            C = cell.shape[1]
+            if C > self.pos_table.num_embeddings:
+                raise ValueError(f"board has {C} cells > pos_table_size={self.pos_table.num_embeddings}")
+            cell = cell + self.pos_table.weight[:C].unsqueeze(0)
         cls = self.cls_token.expand(B, -1, -1)
         return torch.cat([cls, cell], dim=1)
 

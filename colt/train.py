@@ -70,6 +70,9 @@ def build_model(cfg: dict) -> ColtModel:
         n_iters=int(m["n_iters"]),
         ff_mult=int(m.get("ff_mult", 4)),
         v_max=int(m.get("v_max", 9)),
+        use_rel_bias=bool(m.get("use_rel_bias", True)),
+        use_coord_mlp=bool(m.get("use_coord_mlp", True)),
+        pos_table_size=int(m.get("pos_table_size", 0)),
     )
 
 

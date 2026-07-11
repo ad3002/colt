@@ -1,0 +1,74 @@
+{
+  "protocol": "REVISION_EXPERIMENTS.md E4",
+  "environment": {
+    "torch": "2.12.0+cpu",
+    "device": "cpu",
+    "dtype": "float32",
+    "platform": "Linux-5.15.0-185-generic-x86_64-with-glibc2.35",
+    "threads": 4
+  },
+  "checkpoint": "runs/colt6_seed42_cpu/final.pt",
+  "checkpoint_note": "original runs/colt6_seed42/final.pt was lost with the pod; this is a same-recipe, same-seed, same-data CPU retrain",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n": 180,
+  "probe_paths_bitwise_equal": true,
+  "logits_bitwise_equal": true,
+  "theta_elim": 0.1,
+  "n_poisoned": 43,
+  "poisoned_flips_at_theta_plus_0.02": 0,
+  "poisoned_flips_at_theta_minus_0.02": 0,
+  "theta_sweep_n_poisoned": {
+    "0.10": 43,
+    "0.05": 43,
+    "0.02": 43
+  },
+  "solution_value_margin_hist": {
+    "bin_edges": [
+      0.0,
+      0.005,
+      0.01,
+      0.02,
+      0.05,
+      0.1,
+      0.2,
+      0.5,
+      1.0
+    ],
+    "counts": [
+      0,
+      0,
+      1,
+      0,
+      231,
+      4,
+      2,
+      6242
+    ]
+  },
+  "min_solution_margin_p05_p50_p95": [
+    0.1,
+    0.9,
+    0.9
+  ],
+  "n_solved": 137,
+  "accuracy": 0.7611,
+  "contingency": {
+    "solved_clean": 137,
+    "solved_poisoned": 0,
+    "failed_clean": 0,
+    "failed_poisoned": 43
+  },
+  "published_gpu_counts": {
+    "anatomy_probe": 42,
+    "h2_k1_probe": 46,
+    "accuracy_eval": 0.7667,
+    "accuracy_h2_k1": 0.7444
+  },
+  "eval_settings": {
+    "search": "dfs",
+    "policy": "learned",
+    "n_chains": 32,
+    "max_rounds": 60,
+    "seed": 0
+  }
+}
