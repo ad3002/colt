@@ -1,6 +1,6 @@
 # Pre-registered revision experiments (paper 1, review round 1)
 
-Frozen **2026-06-11**, before any of the runs below were executed and before any
+Frozen **2026-07-11**, before any of the runs below were executed and before any
 GPU was provisioned. Each experiment answers a specific referee point, states
 its hypotheses and decision rules **in advance**, and names the artifact it
 will produce. Text changes contingent on outcomes are written down here so the
@@ -87,7 +87,7 @@ measured); LDT+aug and LDT-no-aug are the new cells. If LDT+aug >= 80%, the
 9x9** and must be retracted to a 6x6-only observation. If LDT+aug <= 10%, the
 interaction generalizes across board sizes and the claim strengthens.
 
-**Amendment (2026-06-11, before any run; prompted by re-reading referee point
+**Amendment (2026-07-11, before any run; prompted by re-reading referee point
 1):** the LDT cells additionally run at *effective* batch 512 via gradient
 accumulation (2 x 256), which removes the reproduction's batch-size deviation
 from the LDT recipe on a 24 GB card at the cost of ~2x wall-clock. The
@@ -112,7 +112,7 @@ Protocol: 3 seeds (42, 43, 44) for: (a) the hard-slice 2x3 ablation grid,
 Tables in the paper gain mean +/- sd over seeds and Wilson 95% intervals on
 the per-seed binomials (n = 180).
 
-**Amendment (2026-06-11, before any run; prompted by review 2):**
+**Amendment (2026-07-11, before any run; prompted by review 2):**
 - central claims (9x9 +/- aug, the 2x2 interaction) extended to **5 training
   seeds** (42-46); peripheral cells stay at 3.
 - **dataset-generation seeds**: regenerate `sudoku6` and `sudoku9` with
@@ -217,7 +217,7 @@ Budget: **< 1 GPU-h**. Artifacts: `results/h2_colt9aug_union.json`,
 
 ---
 
-## E8 — Training-side component ablation `[GPU]` *(added 2026-06-11 per review 2, before any run)*
+## E8 — Training-side component ablation `[GPU]` *(added 2026-07-11 per review 2, before any run)*
 
 **Review-2 point 1** (the paper's strongest causal claim, "the training-side
 delta closed the gap", bundles three components: graph bias, coordinate MLP,
@@ -251,7 +251,7 @@ Artifacts: `results/ablate6_{A..F}_seed*.json`.
 
 ---
 
-## E9 — External corpus evaluation `[GPU]` *(added 2026-06-11 per review 2, before any run)*
+## E9 — External corpus evaluation `[GPU]` *(added 2026-07-11 per review 2, before any run)*
 
 **Review-2 point 6** (external validity: all data is our generator; LDT's
 own corpus is Sudoku-Extreme).

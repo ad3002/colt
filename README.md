@@ -39,7 +39,7 @@ are read accordingly. Revision experiments are frozen (committed before executio
 
 | system | accuracy | soundness | wrong answers emitted |
 |---|---|---|---|
-| GRAM (matched budget; no abstention) | 1.1% | — | **98.9% of answers** |
+| GRAM (matched budget; no abstention) | 0.0–1.1% (two runs; stochastic emission) | — | **98.9–100% of answers** |
 | LDT baseline (ad3002/LTD) | 49.4% | 100% | 0 |
 | **CoLT (this work)** | **98.9%** | **100%** | **0** |
 
