@@ -2,7 +2,7 @@
 """Trimmed tail of boundary_cross: arms C (train scale), D (K=48 supervision),
 E (no-learning stub control) and F (elimination diagnostics), all at the base
 budget 16x40. The slow 32x240 variants of G and E are dropped: arm B already
-measured the budget axis (1.9% at 9x budget) and arm G at base budget showed
+measured the budget axis (1.9% at 12x budget) and arm G at base budget showed
 the CLS-calibration hypothesis does not explain the cliff. Results are merged
 into results/boundary_cross.json next to the A/B/G arms.
 """

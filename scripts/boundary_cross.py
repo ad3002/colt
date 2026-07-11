@@ -9,7 +9,7 @@ task fixed at the first dead point (d=4.0, same seeded instance set) and moves
 one resource axis at a time:
 
   A  baseline      d_model 64, 4k steps, K=12 targets, eval 16 chains x 40 rounds
-  B  infer-budget  arm-A checkpoint, eval 32 x 240 (9x search compute)
+  B  infer-budget  arm-A checkpoint, eval 32 x 240 (12x search compute)
   C  train-scale   d_model 128, 12k steps, batch 128 (~10x train compute)
   D  supervision   K=48 sampled solutions (4x less target noise)
   E  no-learning   stub propagator (keeps everything, never flags conflict):
