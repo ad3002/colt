@@ -1,0 +1,137 @@
+{
+  "protocol": "REVISION_EXPERIMENTS.md E8 (CPU edition)",
+  "arms": {
+    "A": {
+      "description": "positional tables only (LDT-style; no rel bias, no coord MLP, no policy loss)",
+      "std": {
+        "seeds": {
+          "42": 0.0
+        },
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "hard": {
+        "seeds": {
+          "42": 0.0
+        },
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "B": {
+      "description": "+ graph bias only",
+      "std": {
+        "seeds": {
+          "42": 0.9944444444444445
+        },
+        "mean": 0.9944,
+        "min": 0.9944444444444445,
+        "max": 0.9944444444444445
+      },
+      "hard": {
+        "seeds": {
+          "42": 0.8055555555555556
+        },
+        "mean": 0.8056,
+        "min": 0.8055555555555556,
+        "max": 0.8055555555555556
+      }
+    },
+    "C": {
+      "description": "+ coord MLP only",
+      "std": {
+        "seeds": {
+          "42": 0.0
+        },
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "hard": {
+        "seeds": {
+          "42": 0.0
+        },
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "D": {
+      "description": "CoLT minus policy loss",
+      "std": {
+        "seeds": {
+          "42": 0.9944444444444445
+        },
+        "mean": 0.9944,
+        "min": 0.9944444444444445,
+        "max": 0.9944444444444445
+      },
+      "hard": {
+        "seeds": {
+          "42": 0.8055555555555556
+        },
+        "mean": 0.8056,
+        "min": 0.8055555555555556,
+        "max": 0.8055555555555556
+      }
+    },
+    "E": {
+      "description": "CoLT minus coord MLP",
+      "std": {
+        "seeds": {
+          "42": 0.9944444444444445
+        },
+        "mean": 0.9944,
+        "min": 0.9944444444444445,
+        "max": 0.9944444444444445
+      },
+      "hard": {
+        "seeds": {
+          "42": 0.7611111111111111
+        },
+        "mean": 0.7611,
+        "min": 0.7611111111111111,
+        "max": 0.7611111111111111
+      }
+    },
+    "F": {
+      "description": "CoLT full",
+      "std": {
+        "seeds": {
+          "42": 1.0
+        },
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "hard": {
+        "seeds": {
+          "42": 0.7611111111111111
+        },
+        "mean": 0.7611,
+        "min": 0.7611111111111111,
+        "max": 0.7611111111111111
+      }
+    }
+  },
+  "seeds_complete": [
+    42
+  ],
+  "gap_fraction_of_A_to_F": {
+    "graph_bias(B)": {
+      "per_seed": [
+        0.994
+      ],
+      "mean": 0.994
+    },
+    "coord_mlp(C)": {
+      "per_seed": [
+        0.0
+      ],
+      "mean": 0.0
+    }
+  },
+  "pre_registered_verdict": "H-E8-graph holds: graph bias accounts for >=80% of the A->F gap"
+}

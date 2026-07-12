@@ -47,12 +47,14 @@ are read accordingly. Revision experiments are frozen (committed before executio
 
 **+49.5 pp over LDT at equal budget — and the decomposition is the story:**
 
-1. **The training-side delta, not search, closed the gap.** The CoLT checkpoint
-   generalized to a 100% held-out probe by step 1,000 where the positional-table
-   LDT run sat at 0% on the same data (and 58% at step 4,000). The delta bundles
-   three components (graph bias, coordinate MLP, policy loss); the
-   single-component ablation isolating them is frozen in
-   [`REVISION_EXPERIMENTS.md`](REVISION_EXPERIMENTS.md) (E8).
+1. **Constraint-graph attention carries the gain — measured, not presumed.**
+   The pre-registered six-arm single-component ablation (E8;
+   `results/ablate6_*.json`) puts the graph-bias-only arm at **99.4%** std
+   where positional-table and coordinate-only controls sit at **0.0%**;
+   removing the policy loss or the coordinate MLP from full CoLT costs at most
+   one puzzle. Every graph-bias arm hits probe 1.0 by step 1,000; every arm
+   without it never leaves 0 (seed 42, one environment; seeds 43/44 land here
+   as they complete).
 2. **DFS + nogoods is a pure efficiency win**: wasted wrong-completion
    derivations drop **2,815 → 2** (standard slice) and **77,692 → 42** (hard
    14-clue slice) at identical accuracy — three orders of magnitude less

@@ -235,7 +235,18 @@ Budget: **< 1 GPU-h**. Artifacts: `results/h2_colt9aug_union.json`,
 
 ---
 
-## E8 — Training-side component ablation `[GPU]` *(added 2026-07-11 per review 2, before any run)*
+## E8 — Training-side component ablation `[CPU: seed 42 done, seeds 43/44 running]` *(added 2026-07-11 per review 2, before any run)*
+
+> **Result, seed 42 (2026-07-12):** decision rule **H-E8-graph fires** — the
+> graph-bias-only arm B scores 99.4% std / 80.6% hard, i.e. 99.4% of the A->F
+> gap, where A (positional tables) and C (coord MLP only) both sit at 0.0%;
+> D (minus policy loss) 99.4/80.6; E (minus coord MLP) 99.4/76.1; F (full,
+> same-recipe retrain) 100.0/76.1. Probe curves: every graph-bias arm reaches
+> 1.0 by step 1000; A and C never leave 0. Notables for the remaining seeds:
+> (a) arm A collapses below the historical ltd-package baseline (49.4%), so
+> attribution is within-codebase; (b) B/D beat F by +4.5pp on hard (n=180,
+> unresolved). Artifacts: `results/ablate6_*_seed42_*.json`,
+> `results/ablate6_summary.json`. Paper updated (abstract, S5.1 Table tab:e8).
 
 > **Execution note (2026-07-11, queued before any arm finished):** running on
 > CPU via `scripts/run_e8_cpu.sh` (6 arms x 3 seeds, waves of 3 at 4 threads;
