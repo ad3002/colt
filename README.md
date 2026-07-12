@@ -79,12 +79,15 @@ criterion "no degradation" passed; no positive-transfer claim at this resolution
 
 ### Phase 4 — 9×9 at 25 clues (frozen budget 64×200; same data every row)
 
-| system | accuracy | soundness | suppressed wrong completions |
-|---|---|---|---|
-| CoLT, no augmentation (restart) | 0.0% | 100% | 1,119,853 |
-| CoLT, no augmentation (DFS+nogoods) | 0.0% | 100% | **91** |
-| LDT reimpl., no augmentation | 0.0% | 100% | 1,841,396 |
-| **CoLT + digit-permutation augmentation** | **96.1%** | **100%** | **0** |
+| system | accuracy | emitted | soundness | suppressed wrong completions |
+|---|---|---|---|---|
+| CoLT, no augmentation (restart) | 0.0% | 0/180 | — (undefined, 0 emitted) | 1,119,853 |
+| CoLT, no augmentation (DFS+nogoods) | 0.0% | 0/180 | — (undefined, 0 emitted) | **91** |
+| LDT reimpl., no augmentation | 0.0% | 0/180 | — (undefined, 0 emitted) | 1,841,396 |
+| **CoLT + digit-permutation augmentation** | **96.1%** | 173/180 | **100%** | **0** |
+
+The soundness *rate* (correct/emitted) is undefined for all-abstain rows; the
+verified-emission invariant (no invalid grid ever emitted) holds in every row.
 
 The failure-anatomy probe predicted its own cure: the 9×9 wall is *first-pass
 poisoning* (confident value-specific mis-eliminations), and a single exact data
