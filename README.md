@@ -48,13 +48,13 @@ are read accordingly. Revision experiments are frozen (committed before executio
 **+49.5 pp over LDT at equal budget — and the decomposition is the story:**
 
 1. **Constraint-graph attention carries the gain — measured, not presumed.**
-   The pre-registered six-arm single-component ablation (E8;
-   `results/ablate6_*.json`) puts the graph-bias-only arm at **99.4%** std
-   where positional-table and coordinate-only controls sit at **0.0%**;
-   removing the policy loss or the coordinate MLP from full CoLT costs at most
-   one puzzle. Every graph-bias arm hits probe 1.0 by step 1,000; every arm
-   without it never leaves 0 (seed 42, one environment; seeds 43/44 land here
-   as they complete).
+   The pre-registered six-arm single-component ablation (E8, three seeds, one
+   environment; `results/ablate6_*.json`) puts the graph-bias-only arm at
+   **99.4%** std on every seed where positional-table and coordinate-only
+   controls sit at **0.0%** on every seed — gap fraction mean exactly 1.00.
+   Every graph-bias arm hits probe 1.0 by step 1,000; every arm without it
+   never leaves 0. A seed-42 hint that dropping the policy loss helps the hard
+   slice did not replicate (reported with its non-replication).
 2. **DFS + nogoods is a pure efficiency win**: wasted wrong-completion
    derivations drop **2,815 → 2** (standard slice) and **77,692 → 42** (hard
    14-clue slice) at identical accuracy — three orders of magnitude less

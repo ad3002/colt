@@ -235,18 +235,20 @@ Budget: **< 1 GPU-h**. Artifacts: `results/h2_colt9aug_union.json`,
 
 ---
 
-## E8 — Training-side component ablation `[CPU: seed 42 done, seeds 43/44 running]` *(added 2026-07-11 per review 2, before any run)*
+## E8 — Training-side component ablation `[CPU-done, 3 seeds]` *(added 2026-07-11 per review 2, before any run)*
 
-> **Result, seed 42 (2026-07-12):** decision rule **H-E8-graph fires** — the
-> graph-bias-only arm B scores 99.4% std / 80.6% hard, i.e. 99.4% of the A->F
-> gap, where A (positional tables) and C (coord MLP only) both sit at 0.0%;
-> D (minus policy loss) 99.4/80.6; E (minus coord MLP) 99.4/76.1; F (full,
-> same-recipe retrain) 100.0/76.1. Probe curves: every graph-bias arm reaches
-> 1.0 by step 1000; A and C never leave 0. Notables for the remaining seeds:
-> (a) arm A collapses below the historical ltd-package baseline (49.4%), so
-> attribution is within-codebase; (b) B/D beat F by +4.5pp on hard (n=180,
-> unresolved). Artifacts: `results/ablate6_*_seed42_*.json`,
-> `results/ablate6_summary.json`. Paper updated (abstract, S5.1 Table tab:e8).
+> **Final result, seeds 42/43/44 (2026-07-12):** decision rule **H-E8-graph
+> fires on every seed** — gap fraction of arm B (graph bias only) = 0.994 /
+> 1.006 / 1.000, mean 1.000; arms A (positional tables) and C (coord MLP
+> only) score 0.0% on both slices on all seeds. Std means: B 99.4, D 99.6,
+> E 99.3, F 99.4; hard means: B 78.1, D 78.5, E 73.9, F 75.9. Probe curves
+> bimodal on the graph-bias axis on every seed (1.0 by step 1000 iff graph
+> bias present). The seed-42 hint that no-policy arms beat F on hard (+4.5pp)
+> did NOT replicate (seed 44 reverses it); across seeds the graph-bias arms
+> are indistinguishable on hard. Notable: arm A collapses below the historical
+> ltd-package baseline (49.4%), so attribution is within-codebase. Artifacts:
+> `results/ablate6_*_seed4{2,3,4}_*.json`, `results/ablate6_summary.json`.
+> Paper updated (abstract, S5.1 Table tab:e8, 3-seed mean(min-max)).
 
 > **Execution note (2026-07-11, queued before any arm finished):** running on
 > CPU via `scripts/run_e8_cpu.sh` (6 arms x 3 seeds, waves of 3 at 4 threads;
