@@ -1,4 +1,4 @@
-# Pre-registered revision experiments (paper 1, review round 1)
+# Prospectively specified revision experiments (paper 1, review round 1)
 
 Frozen **2026-07-11**, before any of the runs below were executed and before any
 GPU was provisioned. Each experiment answers a specific referee point, states
@@ -30,7 +30,7 @@ transforms at 4x4 / 6x6 / 9x9) with exact verification of every hash hit.
 `data/sudoku9` (Phase 4) is regenerated deterministically (builder seed 42)
 and audited the same way.
 
-Pre-registered interpretation:
+Pre-specified interpretation:
 - 4x4 has only 288 valid solution grids; heavy overlap there is a property of
   the space, not a bug. Decision rule: reclassify 4x4 as an *integration/sanity
   tier* in the paper regardless of measured numbers; its 100% cells are not
@@ -56,7 +56,7 @@ budget (5k / 15k / 50k steps, all other hyperparameters as
 random for the LDT solver semantics = restart x random; use its native
 inference).
 
-Hypotheses and decision rules (pre-registered):
+Hypotheses and decision rules (pre-specified):
 - **H-E1-fast**: if LDT+aug at 10x budget recovers to >= 49.4% (its own
   unaugmented score), the verb "destroys" is wrong; replace everywhere with
   "stalls at the frozen budget" and report the recovery curve in the paper.
@@ -81,7 +81,7 @@ Protocol: 4 cells at 9x9/25-clue (`data/sudoku9`, regenerated, audited in E0):
 all at `d_model=128, n_iters=16, batch=256, steps=20000` (the Phase-4 recipe),
 seed 42, frozen eval budget 64 chains x 200 rounds.
 
-Pre-registered expectations: CoLT+aug ~ 96%, CoLT-no-aug ~ 0% (already
+Pre-specified expectations: CoLT+aug ~ 96%, CoLT-no-aug ~ 0% (already
 measured); LDT+aug and LDT-no-aug are the new cells. If LDT+aug >= 80%, the
 "structure is what makes augmentation affordable" claim is **falsified at
 9x9** and must be retracted to a 6x6-only observation. If LDT+aug <= 10%, the
@@ -124,7 +124,7 @@ the per-seed binomials (n = 180).
   over puzzles.
 - all seeds are reported, including failures.
 
-Pre-registered decision rules:
+Pre-specified decision rules:
 - The policy-head effect is declared nonzero only if |mean difference| >
   2 x SE across seeds on the same puzzles (paired). Otherwise the paper says
   "no detectable effect; the design is powered to ~ +/- 5 pp", not
@@ -146,8 +146,11 @@ Artifacts: `results/seeds/*.json`, aggregated by `scripts/make_tables.py`.
 > replicates exactly (43/43 failed-poisoned vs 0/137, accuracy 76.1%);
 > poisoned count invariant at theta in {0.10, 0.05, 0.02}; zero status flips
 > within +/-0.02 of theta; solution-value probabilities bimodal (6,242/6,480
-> values at margin >= 0.5, exactly one value within 0.02). The historical
-> 42-vs-46 gap is margin-level environment numerics of a saturated propagator.
+> values at margin >= 0.5, exactly one value within 0.02). Per review 4, the
+> paper reports the source of the historical 42-vs-46 gap as unresolved
+> cross-environment or checkpoint sensitivity: the original checkpoint was
+> unavailable, so E4 rules out a code-path bug and replicates the contingency
+> but cannot attribute the historical difference.
 > Artifact: `results/reconcile_anatomy_h2.json`. Paper updated (S5.3, S5.4
 > footnote, Reproducibility, claim-audit row).
 
@@ -175,7 +178,7 @@ elimination masks; additionally report the margin histogram
 |sigma(b) - theta_elim| for solution values, and the count of puzzles whose
 poisoned status flips within +/- 0.02 of theta.
 
-Pre-registered decision rules:
+Pre-specified decision rules:
 - If the masks agree (expected): one canonical number set replaces both in the
   paper; the old discrepancy is documented in the reproducibility section as a
   cross-environment sensitivity with the measured margin histogram.
@@ -202,7 +205,7 @@ Protocol: train equivariant CoLT on 6x6 (frozen budget) and 9x9 (Phase-4
 recipe), **without** augmentation. Measure first-pass poisoning and solve
 accuracy on the standard and hard slices.
 
-Pre-registered hypotheses:
+Pre-specified hypotheses:
 - **H-E5-strong**: equivariant model without augmentation matches the
   augmented baseline (9x9 >= 90%, poisoning <= 5%). Then "augmentation is
   calibration" gets the stronger architectural form and the paper's design
@@ -225,7 +228,7 @@ test-time union close it?).
 Protocol: `scripts/h2_symmetry_frames.py --frames 1 4 8 --agg union` on the
 augmented 9x9 checkpoint, plus `failure_anatomy.py` on its 7/180 failures.
 
-Pre-registered expectation: the residual failures are still first-pass
+Pre-specified expectation: the residual failures are still first-pass
 poisonings (the contingency held everywhere so far) and union-K8 closes most
 of them; if it does not, the residual is a *different* failure mode and gets
 its own paragraph: that would be a genuinely new finding.
@@ -278,7 +281,7 @@ Protocol: 6x6, frozen budget and data, 3 seeds each:
 Each arm evaluated on the standard and hard slices (dfs x learned where the
 policy head exists, dfs x random otherwise) plus the held-out probe curve.
 
-Pre-registered hypotheses and decision rules:
+Pre-specified hypotheses and decision rules:
 - **H-E8-graph**: B accounts for >= 80% of the A->F gap (paper keeps
   "constraint-graph conditioning carries the gain", now measured).
 - **H-E8-additive**: if no single component reaches 50% of the gap, the
@@ -305,7 +308,7 @@ soundness, abstention, first-pass poisoning, and the classical-reference
 timing on the same instances. Optionally one fine-tuning arm (<= 2k steps) to
 separate distribution shift from capability.
 
-Pre-registered framing (written before seeing any number): this is an OOD
+Pre-specified framing (written before seeing any number): this is an OOD
 generalization measurement, not a comparison with published LDT numbers; the
 paper's conclusions stay restricted to generated CSPs unless the external
 numbers are strong, in which case the restriction is relaxed to "and
@@ -326,7 +329,7 @@ ecosystem: TRM (preferred; smallest) on the same 6x6/9x9 data with a
 candidate-extraction shim (treat its per-cell output distribution as the
 propagator; threshold to candidate sets for the probe only).
 
-Pre-registered hypotheses: if TRM shows the same one-shot amortization and a
+Pre-specified hypotheses: if TRM shows the same one-shot amortization and a
 poisoning-failure contingency, the anatomy is a property of the *training
 objective class* (amortized full-solution supervision), not of the lattice;
 the paper's title claim upgrades from "a sound neural reasoner" to the class.

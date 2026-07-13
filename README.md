@@ -48,7 +48,7 @@ are read accordingly. Revision experiments are frozen (committed before executio
 **+49.5 pp over LDT at equal budget — and the decomposition is the story:**
 
 1. **Constraint-graph attention carries the gain — measured, not presumed.**
-   The pre-registered six-arm single-component ablation (E8, three seeds, one
+   The prospectively specified six-arm single-component ablation (E8, three seeds, one
    environment; `results/ablate6_*.json`) puts the graph-bias-only arm at
    **99.4%** std on every seed where positional-table and coordinate-only
    controls sit at **0.0%** on every seed — gap fraction mean exactly 1.00.
