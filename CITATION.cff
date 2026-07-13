@@ -23,7 +23,7 @@ references:
     url: "https://arxiv.org/abs/2605.08605"
     year: 2026
   - type: article
-    title: "Generative Recursive Reasoning Models"
+    title: "Generative Recursive Reasoning"
     authors:
       - family-names: Baek
         given-names: Junyeob
