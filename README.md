@@ -43,9 +43,9 @@ are read accordingly. Revision experiments are frozen (committed before executio
 |---|---|---|---|
 | GRAM (matched budget; no abstention) | 0.0–1.1% (two runs; stochastic emission) | — | **98.9–100% of answers** |
 | LDT baseline (ad3002/LTD) | 49.4% | 100% | 0 |
-| **CoLT (this work)** | **98.9%** | **100%** | **0** |
+| **CoLT (this work)** | **100.0%** | **100%** | **0** |
 
-**+49.5 pp over LDT at equal budget — and the decomposition is the story:**
+**+50.6 pp over LDT at equal budget (canonical checkpoint, one measurement environment) — and the decomposition is the story:**
 
 1. **Constraint-graph attention carries the gain — measured, not presumed.**
    The prospectively specified six-arm single-component ablation (E8, three seeds, one
@@ -55,14 +55,15 @@ are read accordingly. Revision experiments are frozen (committed before executio
    Every graph-bias arm hits probe 1.0 by step 1,000; every arm without it
    never leaves 0. A seed-42 hint that dropping the policy loss helps the hard
    slice did not replicate (reported with its non-replication).
-2. **DFS + nogoods is a pure efficiency win**: wasted wrong-completion
-   derivations drop **2,815 → 2** (standard slice) and **77,692 → 42** (hard
-   14-clue slice) at identical accuracy — three orders of magnitude less
-   verification waste under the verify-or-abstain regime.
+2. **DFS + nogoods is a pure efficiency win**: the standard slice leaves nothing
+   to cut (zero suppressed completions in all six arms), and on the hard 14-clue
+   slice wasted wrong-completion derivations drop **74,864 → 50** (1,497×) at
+   identical accuracy — three orders of magnitude less verification waste under
+   the verify-or-abstain regime.
 3. **The learned branch policy is inert at 6×6** (honest null result): the
    benchmark bifurcates — puzzles fall to propagation in ≤5 rounds or resist
    every search arm.
-4. **Failure anatomy is a perfect dichotomy**: all 42 failures — and only the
+4. **Failure anatomy is a perfect dichotomy**: all 43 failures — and only the
    failures — are *first-pass poisoned* (the propagator confidently eliminates a
    true-solution value in its first forward pass; θ-insensitive). The frontier
    is propagator calibration, not search.
@@ -107,8 +108,8 @@ a 24 GB card under full-unroll BPTT). Protocol details: [`PHASE4.md`](PHASE4.md)
   coloring the singleton rate drops to 1.4% and the loop genuinely iterates).
 - **H2 — test-time cure, no retraining.** Union-ensembling each forward over
   K=8 digit-permutation frames (keep a candidate if *any* frame keeps it):
-  poisoning 25.6% → **1.7%**, hard-slice accuracy 74.4% → **100%**. Mean
-  aggregation only reaches 96.1% — the union is the active anti-poisoning
+  poisoning 23.9% → **1.7%**, hard-slice accuracy 76.1% → **100%**. Mean
+  aggregation reaches 97.8% — the union is the active anti-poisoning
   ingredient, as designed.
 - **2×2 confound resolved with an interaction:** at the frozen budget,
   augmentation *collapses* the positional-table baseline (49.4% → **0.0%**;

@@ -1,0 +1,27 @@
+{
+  "n_examples": 180,
+  "n_answered": 137,
+  "accuracy": 0.7611111111111111,
+  "abstain_rate": 0.23888888888888893,
+  "answered_match_known_solution": 1.0,
+  "soundness": 1.0,
+  "suppressed_unsound": 50,
+  "restarts": 72320,
+  "backjumps": 5120,
+  "search": "dfs",
+  "policy": "random",
+  "n_chains": 32,
+  "max_rounds": 60,
+  "rounds": {
+    "p50": 1.0,
+    "p75": 1.0,
+    "p90": 1.0,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "split": "data/sudoku6_hard/test.tsv",
+  "checkpoint": "runs/colt6_seed42_cpu/final.pt",
+  "seed": 0,
+  "theta_cls": 0.6,
+  "theta_elim": 0.1
+}

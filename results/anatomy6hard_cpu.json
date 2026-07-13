@@ -1,0 +1,17 @@
+{
+  "checkpoint": "runs/colt6_seed42_cpu/final.pt",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n": 180,
+  "n_solved": 137,
+  "n_failed": 43,
+  "n_first_pass_poisoned": 43,
+  "contingency": {
+    "solved_clean": 137,
+    "solved_poisoned": 0,
+    "failed_clean": 0,
+    "failed_poisoned": 43
+  },
+  "frac_failed_that_are_poisoned": 1.0,
+  "frac_solved_that_are_poisoned": 0.0,
+  "theta_elim": 0.1
+}

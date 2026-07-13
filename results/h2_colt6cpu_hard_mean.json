@@ -1,0 +1,14 @@
+{
+  "checkpoint": "runs/colt6_seed42_cpu/final.pt",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n_puzzles": 180,
+  "settings": [
+    {
+      "frames": 8,
+      "agg": "mean",
+      "poisoning_rate": 0.1611,
+      "accuracy": 0.9778
+    }
+  ],
+  "seed": 0
+}
