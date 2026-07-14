@@ -1,0 +1,52 @@
+{
+  "task": "3-coloring G(n=40, m=d*n/2), from scratch, K<=12",
+  "transition_at": 4.69,
+  "points": [
+    {
+      "avg_degree": 3.25,
+      "n_train": 595,
+      "n_test": 105,
+      "gen": {
+        "tried": 726,
+        "unsat": 26,
+        "undecided": 0
+      },
+      "mean_sampled_solutions": 12.0,
+      "acc_restart": 0.1524,
+      "acc_dfs": 0.2762,
+      "h1_singleton_rate": 0.0002,
+      "wall_s": 3371.1
+    },
+    {
+      "avg_degree": 3.5,
+      "n_train": 595,
+      "n_test": 105,
+      "gen": {
+        "tried": 749,
+        "unsat": 49,
+        "undecided": 0
+      },
+      "mean_sampled_solutions": 12.0,
+      "acc_restart": 0.0,
+      "acc_dfs": 0.0,
+      "h1_singleton_rate": 0.0,
+      "wall_s": 3368.8
+    },
+    {
+      "avg_degree": 3.75,
+      "n_train": 595,
+      "n_test": 105,
+      "gen": {
+        "tried": 812,
+        "unsat": 112,
+        "undecided": 0
+      },
+      "mean_sampled_solutions": 12.0,
+      "acc_restart": 0.0,
+      "acc_dfs": 0.0,
+      "h1_singleton_rate": 0.0,
+      "wall_s": 3381.8
+    }
+  ],
+  "seed": 42
+}
