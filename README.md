@@ -14,6 +14,10 @@ and its local propagator transfers zero-shot to 9×9.
 > protocol in [`BENCHMARKS.md`](BENCHMARKS.md); the GPU plan in
 > [`PHASE4.md`](PHASE4.md). The two companion manuscripts are maintained separately and will appear on arXiv.
 
+## The paper in one picture
+
+![Built as an iterative reasoner; actually answers in one shot; fails when the first pass deletes a needed digit; symmetry shuffling blocks that deletion](assets/figure1.svg)
+
 ## Why
 
 Our LDT reproduction measured exactly where sound lattice deduction wastes its

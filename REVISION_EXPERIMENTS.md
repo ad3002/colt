@@ -453,3 +453,13 @@ Artifacts: `scripts/independent_verifier.py`, `results/verifier_audit.json`,
 > E3 9x9 arm [GPU-done] (aug 174/173/174, noaug 0/0/1, contingency perfect on
 > all six runs; commit precision 0.585->0.999; E6 union closes residuals to
 > 180/180). Artifacts in results/; paper updated end to end.
+
+> **Version note (r10 -> r13), unaugmented 9x9 commit precision:** the r10
+> draft reported 0.936 for the unaugmented model (GPU-era checkpoint,
+> committed artifact). The three fresh seeds on the regenerated, audited split
+> give 0.584-0.589 (results/h1_colt9_noaug_s4*.json). The GPU-era checkpoint
+> and its exact probe state are no longer available to reconcile the gap; the
+> new value is the one carried by the paper because it is seed-replicated
+> (x3), measured on the audited split, and consistent with the total
+> first-pass poisoning (180/180/179) that both eras observe. The augmented
+> value is stable across eras (0.9987 vs 0.998-0.999).
