@@ -329,3 +329,30 @@ def test_ablation_switches_shapes_and_frozen_zero_rel_bias():
         assert False, "expected ValueError for pos_table smaller than board"
     except ValueError:
         pass
+
+
+# --- augmentation stays inside audited symmetry orbits -----------------------
+
+
+def test_digit_permutation_preserves_leakage_audit_orbit():
+    """Digit-permutation augmentation samples a subgroup of the symmetry group
+    the leakage audit enumerates, so an augmented solution must hash to the
+    same digit-invariant orbit key as its source (the paper's closure claim)."""
+    import importlib.util
+    import numpy as np
+    from pathlib import Path
+
+    spec = importlib.util.spec_from_file_location(
+        "la", Path(__file__).resolve().parents[1] / "scripts" / "leakage_audit.py")
+    la = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(la)
+
+    rng = np.random.default_rng(0)
+    n, ds = 6, Path(__file__).resolve().parents[1] / "data" / "sudoku6" / "train.tsv"
+    _, _, sols = la.load_split(ds)
+    r1 = rng.integers(1, 2**63, size=(n * n,), dtype=np.uint64)
+    base = la.digit_invariant_hash(sols[:50], n, r1)
+    for _ in range(5):
+        perm = rng.permutation(n)
+        aug = perm[sols[:50]]
+        assert (la.digit_invariant_hash(aug, n, r1) == base).all()

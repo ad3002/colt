@@ -1,0 +1,20 @@
+{
+  "checkpoint": "runs/colt9_aug_s42/final.pt",
+  "split": "data/sudoku9_regen/test.tsv",
+  "n_puzzles": 180,
+  "settings": [
+    {
+      "frames": 1,
+      "agg": "single",
+      "poisoning_rate": 0.0333,
+      "accuracy": 0.9667
+    },
+    {
+      "frames": 8,
+      "agg": "union",
+      "poisoning_rate": 0.0056,
+      "accuracy": 1.0
+    }
+  ],
+  "seed": 0
+}

@@ -1,0 +1,17 @@
+{
+  "checkpoint": "runs/ablate6_F_seed44/final.pt",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n": 180,
+  "n_solved": 142,
+  "n_failed": 38,
+  "n_first_pass_poisoned": 38,
+  "contingency": {
+    "solved_clean": 142,
+    "solved_poisoned": 0,
+    "failed_clean": 0,
+    "failed_poisoned": 38
+  },
+  "frac_failed_that_are_poisoned": 1.0,
+  "frac_solved_that_are_poisoned": 0.0,
+  "theta_elim": 0.1
+}

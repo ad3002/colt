@@ -4,62 +4,80 @@
     "data/sudoku4/test.tsv": {
       "n_instances": 300,
       "all_solved": true,
-      "time_ms_median": 0.017,
-      "time_ms_p90": 0.018,
-      "time_ms_max": 36.356,
+      "time_ms_median": 0.016,
+      "time_ms_p90": 0.019,
+      "time_ms_max": 39.153,
       "decisions_median": 0,
       "decisions_max": 0
     },
     "data/sudoku6/test.tsv": {
       "n_instances": 180,
       "all_solved": true,
-      "time_ms_median": 0.044,
-      "time_ms_p90": 0.048,
-      "time_ms_max": 0.143,
+      "time_ms_median": 0.042,
+      "time_ms_p90": 0.043,
+      "time_ms_max": 0.126,
       "decisions_median": 0,
       "decisions_max": 0
     },
     "data/sudoku6_hard/test.tsv": {
       "n_instances": 180,
       "all_solved": true,
-      "time_ms_median": 0.05,
-      "time_ms_p90": 0.052,
-      "time_ms_max": 0.133,
+      "time_ms_median": 0.047,
+      "time_ms_p90": 0.049,
+      "time_ms_max": 0.127,
       "decisions_median": 0,
       "decisions_max": 3
     },
     "data/sudoku9_small/test.tsv": {
       "n_instances": 198,
       "all_solved": true,
-      "time_ms_median": 0.204,
-      "time_ms_p90": 0.472,
-      "time_ms_max": 2.45,
+      "time_ms_median": 0.234,
+      "time_ms_p90": 0.493,
+      "time_ms_max": 2.364,
       "decisions_median": 3,
       "decisions_max": 185
     },
     "3col_n40_c3.0": {
       "n_instances": 60,
-      "time_ms_median": 0.665,
-      "time_ms_p90": 1.134,
-      "time_ms_max": 24.345
+      "time_ms_median": 0.66,
+      "time_ms_p90": 0.811,
+      "time_ms_max": 24.219
+    },
+    "3col_n40_c3.25": {
+      "n_instances": 60,
+      "time_ms_median": 0.657,
+      "time_ms_p90": 0.771,
+      "time_ms_max": 4.768
+    },
+    "3col_n40_c3.5": {
+      "n_instances": 60,
+      "time_ms_median": 0.697,
+      "time_ms_p90": 1.27,
+      "time_ms_max": 6.346
+    },
+    "3col_n40_c3.75": {
+      "n_instances": 60,
+      "time_ms_median": 0.862,
+      "time_ms_p90": 1.627,
+      "time_ms_max": 11.144
     },
     "3col_n40_c4.0": {
       "n_instances": 60,
-      "time_ms_median": 0.898,
-      "time_ms_p90": 2.34,
-      "time_ms_max": 5.356
+      "time_ms_median": 0.941,
+      "time_ms_p90": 2.407,
+      "time_ms_max": 5.483
     },
     "3col_n40_c4.5": {
       "n_instances": 60,
-      "time_ms_median": 0.982,
-      "time_ms_p90": 2.202,
-      "time_ms_max": 9.589
+      "time_ms_median": 0.939,
+      "time_ms_p90": 2.266,
+      "time_ms_max": 9.982
     },
     "3col_n40_c4.9": {
       "n_instances": 60,
-      "time_ms_median": 1.368,
-      "time_ms_p90": 3.049,
-      "time_ms_max": 5.713
+      "time_ms_median": 1.306,
+      "time_ms_p90": 2.653,
+      "time_ms_max": 6.044
     }
   }
 }

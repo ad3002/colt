@@ -1,0 +1,20 @@
+{
+  "checkpoint": "runs/ablate6_F_seed43/final.pt",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n_puzzles": 180,
+  "settings": [
+    {
+      "frames": 1,
+      "agg": "single",
+      "poisoning_rate": 0.2722,
+      "accuracy": 0.7278
+    },
+    {
+      "frames": 8,
+      "agg": "union",
+      "poisoning_rate": 0.0111,
+      "accuracy": 1.0
+    }
+  ],
+  "seed": 0
+}

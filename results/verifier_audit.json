@@ -1,0 +1,83 @@
+{
+  "splits": {
+    "data/sudoku4/test.tsv": {
+      "n_solutions": 300,
+      "accepted": 300,
+      "corruptions_rejected": 300,
+      "row_permutations_rejected": 142
+    },
+    "data/sudoku4/train.tsv": {
+      "n_solutions": 1700,
+      "accepted": 1700,
+      "corruptions_rejected": 1700,
+      "row_permutations_rejected": 721
+    },
+    "data/sudoku6/test.tsv": {
+      "n_solutions": 180,
+      "accepted": 180,
+      "corruptions_rejected": 180,
+      "row_permutations_rejected": 164
+    },
+    "data/sudoku6/train.tsv": {
+      "n_solutions": 1020,
+      "accepted": 1020,
+      "corruptions_rejected": 1020,
+      "row_permutations_rejected": 898
+    },
+    "data/sudoku6_hard/test.tsv": {
+      "n_solutions": 180,
+      "accepted": 180,
+      "corruptions_rejected": 180,
+      "row_permutations_rejected": 161
+    },
+    "data/sudoku6_hard/train.tsv": {
+      "n_solutions": 70,
+      "accepted": 70,
+      "corruptions_rejected": 70,
+      "row_permutations_rejected": 64
+    },
+    "data/sudoku9_regen/slice_hard.tsv": {
+      "n_solutions": 93,
+      "accepted": 93,
+      "corruptions_rejected": 93,
+      "row_permutations_rejected": 91
+    },
+    "data/sudoku9_regen/test.tsv": {
+      "n_solutions": 180,
+      "accepted": 180,
+      "corruptions_rejected": 180,
+      "row_permutations_rejected": 178
+    },
+    "data/sudoku9_regen/train.tsv": {
+      "n_solutions": 1020,
+      "accepted": 1020,
+      "corruptions_rejected": 1020,
+      "row_permutations_rejected": 1014
+    },
+    "data/sudoku9_small/slice_hard.tsv": {
+      "n_solutions": 34,
+      "accepted": 34,
+      "corruptions_rejected": 34,
+      "row_permutations_rejected": 34
+    },
+    "data/sudoku9_small/test.tsv": {
+      "n_solutions": 198,
+      "accepted": 198,
+      "corruptions_rejected": 198,
+      "row_permutations_rejected": 198
+    },
+    "data/sudoku9_small/train.tsv": {
+      "n_solutions": 102,
+      "accepted": 102,
+      "corruptions_rejected": 102,
+      "row_permutations_rejected": 102
+    }
+  },
+  "disagreements": 0,
+  "checks": 25231,
+  "random_grids": {
+    "n": 10000,
+    "rejected": 10000
+  },
+  "pass": true
+}

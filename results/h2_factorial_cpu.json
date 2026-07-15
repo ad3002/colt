@@ -1,0 +1,36 @@
+{
+  "checkpoint": "runs/colt6_seed42_cpu/final.pt",
+  "split": "data/sudoku6_hard/test.tsv",
+  "n": 180,
+  "cells": {
+    "identity_K4_union": {
+      "poisoned": 43
+    },
+    "identity_K8_union": {
+      "poisoned": 43
+    },
+    "digit_K4_union": {
+      "poisoned": 9
+    },
+    "digit_K8_union": {
+      "poisoned": 3
+    },
+    "geometry_K4_union": {
+      "poisoned": 31
+    },
+    "geometry_K8_union": {
+      "poisoned": 27,
+      "solved": 163
+    },
+    "both_K4_union": {
+      "poisoned": 10
+    },
+    "both_K8_union": {
+      "poisoned": 5,
+      "solved": 180
+    },
+    "geometry_K8_mean": {
+      "poisoned": 45
+    }
+  }
+}

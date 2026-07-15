@@ -1,0 +1,23 @@
+{
+  "checkpoint": "runs/colt_multi_cpu/final.pt",
+  "n_states": 512,
+  "theta_elim": 0.1,
+  "propagation_floor": {
+    "eliminations": 112887,
+    "share_of_truth": 0.9828
+  },
+  "model_overall": {
+    "tp": 69076,
+    "fp": 1805,
+    "fn": 45788,
+    "precision": 0.9745,
+    "recall": 0.6014
+  },
+  "model_beyond_propagation": {
+    "tp": 897,
+    "fp": 1805,
+    "fn": 1080,
+    "precision": 0.332,
+    "recall": 0.4537
+  }
+}

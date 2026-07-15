@@ -1,0 +1,27 @@
+{
+  "n_examples": 180,
+  "n_answered": 173,
+  "accuracy": 0.9611111111111111,
+  "abstain_rate": 0.03888888888888886,
+  "answered_match_known_solution": 1.0,
+  "soundness": 1.0,
+  "suppressed_unsound": 0,
+  "restarts": 41459,
+  "backjumps": 0,
+  "search": "restart",
+  "policy": "random",
+  "n_chains": 64,
+  "max_rounds": 200,
+  "rounds": {
+    "p50": 1.0,
+    "p75": 1.0,
+    "p90": 1.0,
+    "p95": 1.0,
+    "max": 2.0
+  },
+  "split": "data/sudoku9_regen/test.tsv",
+  "checkpoint": "runs/colt9_aug_s43/final.pt",
+  "seed": 0,
+  "theta_cls": 0.6,
+  "theta_elim": 0.1
+}

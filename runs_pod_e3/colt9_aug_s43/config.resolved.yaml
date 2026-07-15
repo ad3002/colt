@@ -1,0 +1,42 @@
+model:
+  d_model: 128
+  n_heads: 4
+  n_layers: 4
+  n_iters: 16
+  ff_mult: 4
+  v_max: 9
+solve:
+  theta_elim: 0.1
+  theta_cls_train: 0.9
+  tau_decide: 1.5
+  tau_age: 100
+loss:
+  w_plus: 4.0
+  w_minus: 0.5
+  lambda_cls: 0.1
+  lambda_ce: 0.2
+  lambda_policy: 0.25
+train:
+  optimizer: adamw
+  lr: 0.003
+  weight_decay: 0.1
+  betas:
+  - 0.9
+  - 0.95
+  grad_clip: 1.0
+  batch_size: 256
+  steps: 20000
+  warmup_frac: 0.03
+  seed: 43
+  curriculum_reveal_max: 0.9
+  curriculum_anneal_frac: 0.7
+  pool_policy: learned
+  augment_digits: true
+eval:
+  n_chains: 32
+  max_rounds: 60
+  theta_cls: 0.6
+  probe_chains: 16
+  probe_rounds: 48
+logging:
+  log_every: 100

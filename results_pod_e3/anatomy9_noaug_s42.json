@@ -1,0 +1,17 @@
+{
+  "checkpoint": "runs/colt9_noaug_s42/final.pt",
+  "split": "data/sudoku9_regen/test.tsv",
+  "n": 180,
+  "n_solved": 0,
+  "n_failed": 180,
+  "n_first_pass_poisoned": 180,
+  "contingency": {
+    "solved_clean": 0,
+    "solved_poisoned": 0,
+    "failed_clean": 0,
+    "failed_poisoned": 180
+  },
+  "frac_failed_that_are_poisoned": 1.0,
+  "frac_solved_that_are_poisoned": 0.0,
+  "theta_elim": 0.1
+}

@@ -351,3 +351,105 @@ amendment)  ->  E2 (16 h)  ->  E5 / E9-finetune / E7 as compute allows
 
 Every run lands in `results/` and is folded into the paper by
 `scripts/make_tables.py`; no number enters the text by hand.
+
+---
+
+# Round-8 additions (frozen 2026-07-14, before any run)
+
+## E10 — H2 predicted-null and frame-type factorial `[CPU]`
+
+Hypothesis under test: poisoning is *value-specific* (digit-identity) bias.
+Arms on the canonical checkpoint, hard slice, K in {4, 8}, union (plus K=8
+mean for digit frames): (a) identity-repeated frames (same pass K times),
+(b) digit-only permutation frames (current H2), (c) geometry-only frames
+(row perms within bands x band perms x column perms within stacks x stack
+perms; no transpose at 6x6, boxes are 2x3), (d) digit x geometry.
+
+Pre-specified predictions and decision rules:
+- identity-repeated: NO improvement over K=1 (predicted null; if it improves,
+  the union wrapper itself is confounded and H2 is uninterpretable).
+- digit-only >> geometry-only if bias is value-specific.
+- If geometry-only helps comparably, rewrite the mechanism everywhere as
+  "frame-dependent deterministic elimination error", not "value-specific".
+- union > mean expected for digit frames (already measured).
+Artifacts: `results/h2_factorial_cpu.json`. Script: `scripts/h2_factorial.py`.
+
+## E11 — full policy grid where search works `[CPU]`
+
+At c = 3.0 and 3.25 (the two live densities), train 3 seeds per density and
+evaluate the full {restart, dfs} x {random, mrv, learned} grid per seed,
+plus first-pass singleton and poisoning rates. This is the fair trial of the
+learned policy (frozen criterion 2) in a regime where branching happens.
+Decision rules: if learned > mrv > random (paired, per-seed direction
+consistent), criterion 2 passes there and the paper reports where the policy
+earns its keep; if learned <= random, the policy head is falsified even
+where search matters, a stronger negative than 6x6 offered.
+Artifacts: `results/policy_grid_c3*.json`. Script: `scripts/policy_grid.py`.
+
+## E12 — base-rate controls `[CPU]`
+
+(a) 9x9 zero-shot transfer floor: on the same 512 states as
+`transfer9_multi.json`, compute eliminations reachable by plain Sudoku
+constraint propagation (peer singles), then report model precision/recall
+overall AND restricted to candidates NOT eliminated by propagation
+(incremental lift over the rule-based floor).
+(b) classical reference rows for c in {3.0, 3.25, 3.5, 3.75} (solve rate,
+median/max time, decisions), matching the c>=4 rows already reported.
+Artifacts: `results/transfer9_floor.json`, classical_reference.json updated.
+
+## E13 — canonical family extended to seeds 43/44 `[CPU]`
+
+Run the full canonical pipeline (2x3 grid both slices, budget sweep, H1, H2
+digit-union K in {1,4,8}, anatomy contingency + theta sweep) on
+`runs/ablate6_F_seed43` and `runs/ablate6_F_seed44` in the same environment.
+Report per-seed integer counts, mean +/- range, and per-seed contingencies.
+No pooling of puzzles across seeds into one Wilson interval.
+Artifacts: `results/colt6cpu_s4{3,4}_*.json`, `results/anatomy6hard_cpu_s4*.json`.
+
+## E14 — budget sweep, positional vs graph arms, 3 seeds `[CPU]`
+
+Arms {positional tables, graph bias only, full CoLT} x steps {5k, 15k, 50k}
+x seeds {42, 43, 44}, identical data/optimizer/batch/curriculum/eval
+(5k cells reuse E8 artifacts). Decision rules (verbatim from review):
+- positional catches up at 15k/50k -> claim becomes "graph bias is primarily
+  an optimization/sample-efficiency advantage at the frozen budget";
+- positional stays at ~0 at 50k -> port/diff the historical LDT architecture
+  (loss, init, position embeddings, pool dynamics, curriculum) until the gap
+  is explained; until then E8 stays within-codebase and out of the abstract.
+Artifacts: `results/budget_sweep_*.json`.
+
+## E15 — independent verifier audit `[CPU]`
+
+A second Sudoku verifier written without importing any colt code, plus
+property-based tests: all dataset solutions accepted; random single-cell
+corruptions rejected; random permuted-row grids rejected; agreement with the
+production verifier on 10^4 random grids (valid and corrupted). Dataset
+uniqueness re-checked. Results and scope recorded in `AUDIT.md`.
+Artifacts: `scripts/independent_verifier.py`, `results/verifier_audit.json`,
+`AUDIT.md`.
+
+> **E3 (9x9 arm) execution note (2026-07-14, frozen before launch):** pod is an
+> RTX 3090 24GB (recipe-compatible: the constraint is 24GB for full-unroll
+> BPTT at batch 256). Runs, in order: colt9-aug seeds 42/43/44, then colt9
+> no-aug seeds 42/43/44; recipe identical to Appendix B (d=128, L=16, batch
+> 256, 20k steps, tau_age=100), data = data/sudoku9_regen (the E0-audited
+> deterministic regeneration, seed 42). Per run: eval dfs x learned and
+> restart x random at 64x200; H1 probe; poisoning contingency
+> (failure_anatomy). Plus E6 probe on aug/seed42: K=8 digit-union poisoning +
+> solve. Report per-seed integer counts and mean +/- range; no cross-seed
+> pooling of puzzles. Decision rules: aug mean stays the headline; if any aug
+> seed drops below 90%, the abstract number becomes the range; no-aug
+> expected 0% on all seeds (any nonzero seed is reported and investigated).
+
+> **Round-8 status (2026-07-15):** E10 [CPU-done] (identity null holds, 43/43
+> intact; digit 43->3; geometry 43->27; both 5, solve 180/180). E11 [CPU-done]
+> (informed > random 7/9; learned ~ MRV everywhere; criterion 2 falsified in
+> strict form). E12 [CPU-done] (propagation floor 98.3% of truth;
+> beyond-propagation P 0.33/R 0.45; classical rows for all densities).
+> E13 [CPU-done] (contingency perfect on seeds 43/44: 49/49, 38/38; union to
+> 100% each). E14 [CPU-done] (positional: 0% @5k all lrs, 16.1% @15k,
+> 47.8/28.3/35.6% @50k x 3 seeds -> sample-efficiency attribution per decision
+> rule). E15 [CPU-done] (25,231 cross-checks, 0 disagreements; AUDIT.md).
+> E3 9x9 arm [GPU-done] (aug 174/173/174, noaug 0/0/1, contingency perfect on
+> all six runs; commit precision 0.585->0.999; E6 union closes residuals to
+> 180/180). Artifacts in results/; paper updated end to end.

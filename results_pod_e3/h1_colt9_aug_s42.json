@@ -1,0 +1,10 @@
+{
+  "checkpoint": "runs/colt9_aug_s42/final.pt",
+  "split": "data/sudoku9_regen/test.tsv",
+  "n_puzzles": 180,
+  "singleton_rate": 0.9357,
+  "commit_correct": 0.998,
+  "cand_per_blank_after_pass1": 1.13,
+  "full_commit_frac": 0.9111,
+  "theta_elim": 0.1
+}

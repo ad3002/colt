@@ -1,0 +1,29 @@
+{
+  "density": 3.0,
+  "seed": 42,
+  "n_test": 105,
+  "gen": {
+    "tried": 725,
+    "unsat": 22,
+    "undecided": 3
+  },
+  "grid_solved": {
+    "restart_random": 2,
+    "restart_mrv": 8,
+    "restart_learned": 7,
+    "dfs_random": 7,
+    "dfs_mrv": 6,
+    "dfs_learned": 5
+  },
+  "grid_acc": {
+    "restart_random": 0.019,
+    "restart_mrv": 0.0762,
+    "restart_learned": 0.0667,
+    "dfs_random": 0.0667,
+    "dfs_mrv": 0.0571,
+    "dfs_learned": 0.0476
+  },
+  "h1_singleton_rate": 0.001,
+  "sampled_solutions_all_dead_rate": 0.419,
+  "wall_s": 10401.8
+}

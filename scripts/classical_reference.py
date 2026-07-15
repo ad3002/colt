@@ -172,7 +172,7 @@ def main() -> int:
         out["suites"][split] = stats_ms(times, decs)
         print(split, out["suites"][split], file=sys.stderr)
 
-    for c in [3.0, 4.0, 4.5, 4.9]:
+    for c in [3.0, 3.25, 3.5, 3.75, 4.0, 4.5, 4.9]:
         rng = random.Random(42 + int(c * 10))
         times, decs = [], []
         made = 0
